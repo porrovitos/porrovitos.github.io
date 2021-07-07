@@ -12,8 +12,6 @@ import { User } from '../model/user';
 })
 export class AuthService {
 
-  private apiServiceUrl = environment.apiBaseUrl;
-
   constructor(
     private http: HttpClient,
     private router: Router,

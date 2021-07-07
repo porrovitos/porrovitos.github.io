@@ -9,8 +9,6 @@ import { Fandom } from '../model/fandom';
 })
 export class FanficService {
 
-  private apiServiceUrl = environment.apiBaseUrl;
-
   constructor(private http: HttpClient) { }
 
     public getFanfics() : Observable<Fanfic[]> {
