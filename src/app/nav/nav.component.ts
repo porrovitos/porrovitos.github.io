@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Emitters } from '../emmiters/emmiters';
+import { authEmitters } from '../emmiters/authEmmiter';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
     private cookieService : CookieService) { }
 
   ngOnInit(): void {
-    Emitters.authEmitter.subscribe(
+    authEmitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
       }
@@ -26,7 +26,8 @@ export class NavComponent implements OnInit {
 
   logout(): void {
     this.cookieService.delete( 'token');
-    this.cookieService.delete('user')
+    this.cookieService.delete('user');
+    this.cookieService.delete('username');
     this.router.navigate([''])
     this.authenticated = false
   }

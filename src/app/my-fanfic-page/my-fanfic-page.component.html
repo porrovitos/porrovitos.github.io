@@ -1,0 +1,31 @@
+<div class="form-group">
+    <div *ngFor="let fanfic of fanfics">
+        <section class="home-blog bg-sand">
+            
+          <div class="container">
+          <!-- section title ends -->
+            <div class="row ">
+                <a a routerLink="/fanfic/id/{{fanfic.id}}">
+              <div class="col-md-6">
+                <div class="media blog-media">
+                  <a><img class="d-flex" src="https://via.placeholder.com/350x380/6495ED/000000" alt="Generic placeholder image"></a>
+                  <div class="media-body">
+                    <a href=""><h5 class="mt-0">{{fanfic.fanfic_name}}</h5></a>
+                    Sodales aliquid, in eget ac cupidatat velit autem numquam ullam ducimus occaecati placeat error.
+                    <ul>
+                      <li>by: {{fanfic.user_username}}</li>
+                      <li class="text-right">{{fanfic.count_likes}} likes</li>
+                    </ul>
+                    <ul>
+                      <li>Creation Date: {{fanfic.creation_date}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+          </div>
+          <button type="button" (click)="deleteFanfic(fanfic.id)">Delete Fanfic</button>
+        </section>
+    </div>
+  </div>

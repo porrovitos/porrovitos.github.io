@@ -1,0 +1,30 @@
+<div *ngFor="let favorite of favorites">
+    <section class="home-blog bg-sand">
+        
+      <div class="container">
+
+    
+        <div class="row ">
+            <a a routerLink="/fanfic/id/{{favorite.fanfic.id}}">
+          <div class="col-md-6">
+            <div class="media blog-media">
+              <a><img class="d-flex" src="https://via.placeholder.com/350x380/6495ED/000000" alt="Generic placeholder image"></a>
+              <div class="media-body">
+                <a href=""><h5 class="mt-0">{{favorite.fanfic.fanfic_name}}</h5></a>
+                Description: {{favorite.fanfic.description}}
+                <ul>
+                  <li>by: {{favorite.fanfic.user_username}}</li>
+                  <li class="text-right">{{favorite.fanfic.count_likes}} likes</li>
+                </ul>
+                <ul>
+                  <li>Creation Date: {{favorite.fanfic.creation_date}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
+      </div>
+      <button type="button" (click)="removeFromFavorite(favorite.fanfic)">Remove fanfic from favorite</button>
+    </section>
+</div>

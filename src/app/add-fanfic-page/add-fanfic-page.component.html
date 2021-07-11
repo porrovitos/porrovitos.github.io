@@ -1,28 +1,48 @@
-<form [formGroup]="orderForm" (ngSubmit)="OnSubmit(orderForm.value)">
+<form class="example-form"[formGroup]="orderForm" (ngSubmit)="OnSubmit(orderForm.value)">
+  <div>
     <div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Select Fandom</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option *ngFor="let fandom of fandoms" 
-                [value]="fandom.fandom_name" >
-                    {{fandom.fandom_name}}
-                </option>
-            </select>
-          </div>
-        <input type="text" formControlName="fanficName" placeholder="Fanfic name"/>
+      <mat-form-field appearance="fill" class="example-full-width" >
+        <mat-label>Fandom</mat-label>
+        <select matNativeControl d="exampleFormControlSelect1" (change)="selectChangeHandler($event)">
+          <option *ngFor="let fandom of fandoms" [value]="fandom.fandom_name">
+            {{fandom.fandom_name}}
+          </option>
+        </select>
+      </mat-form-field>
     </div>
-    <div formArrayName="items" *ngFor="let item of items.controls; let i = index;">
-      <div [formGroupName]="i">
-        <input type="text" formControlName="partName" placeholder="Part name"/>
-      </div>
-      <div [formGroupName]="i">
-        <textarea class="form-control" aria-label="With textarea" type="text" formControlName="partText" placeholder="Part Text"></textarea>
-      </div>
+    <div >
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Fanfic name</mat-label>
+        <input matInput type="text" formControlName="fanficName" placeholder="Ex. Harry's Adventures">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Fanfic Description</mat-label>
+        <input matInput type="text" formControlName="fanficDescription"
+          placeholder="Ex. The story of Harry's adventures">
+      </mat-form-field>
     </div>
-    <div>
-        <button type="submit">Save</button>
+  </div>
+
+  <div  formArrayName="items" *ngFor="let item of items.controls; let i = index;">
+    <div [formGroupName]="i">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Part name</mat-label>
+        <input matInput type="text" formControlName="partName" placeholder="Ex. First Part">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Part Text</mat-label>
+        <textarea matInput type="text" formControlName="partText" placeholder="Part Text"
+          placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
     </div>
-    <div>
-        <button type="button" (click)="addItem()">Add More</button>
+    <div class="example-button-row">
+      <button mat-raised-button color="warn" (click)="removeItem(item.get('partId')?.value)">Remove fanfic part</button>
+      <button mat-raised-button color="primary" type="button" (click)="addItem()" style="float: right; margin-bottom: 20px;">Add More</button>
     </div>
-  </form>
+  </div>
+  <div>
+    <button mat-raised-button type="submit" class="example-full-width" style="margin-bottom: 70px;">Save</button>
+  </div>
+  <div>
+  </div>
+</form>

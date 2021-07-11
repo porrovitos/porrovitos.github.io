@@ -1,3 +1,5 @@
+
+<button type="button" (click)="sortByLikes()">SortByLikes</button>
 <div *ngFor="let fanfic of fanfics">
     <section class="home-blog bg-sand">
         
@@ -12,9 +14,9 @@
               <a><img class="d-flex" src="https://via.placeholder.com/350x380/6495ED/000000" alt="Generic placeholder image"></a>
               <div class="media-body">
                 <a href=""><h5 class="mt-0">{{fanfic.fanfic_name}}</h5></a>
-                Sodales aliquid, in eget ac cupidatat velit autem numquam ullam ducimus occaecati placeat error.
+                Description: {{fanfic.description}}
                 <ul>
-                  <li>by: {{fanfic.creator_username}}</li>
+                  <li>by: {{fanfic.user_username}}</li>
                   <li class="text-right">{{fanfic.count_likes}} likes</li>
                 </ul>
                 <ul>

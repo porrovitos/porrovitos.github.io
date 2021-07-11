@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Fanfic } from 'src/app/model/fanfic';
 import { FanficService } from 'src/app/service/fanfic.service';
-import { Emitters } from '../emmiters/emmiters';
+import { authEmitters } from '../emmiters/authEmmiter';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -13,7 +13,6 @@ import { CookieService } from 'ngx-cookie-service';
 export class HomePageComponent implements OnInit {
 
   public fanfics: Fanfic[];
-
   constructor(
     private fanficService: FanficService,
     private cookieService : CookieService){}
@@ -21,10 +20,10 @@ export class HomePageComponent implements OnInit {
   ngOnInit(){
     let token = this.cookieService.get('token');
     if(token != ''){
-      Emitters.authEmitter.emit(true)
+      authEmitters.authEmitter.emit(true)
     }
     else(
-      Emitters.authEmitter.emit(false)
+      authEmitters.authEmitter.emit(false)
     )
     
     this.getFanfics();
@@ -34,6 +33,7 @@ export class HomePageComponent implements OnInit {
       this.fanficService.getFanfics().subscribe(
       (response: Fanfic[]) =>{
         this.fanfics = response;
+        
       },
       (error : HttpErrorResponse) =>{
         alert(error.message);
@@ -41,4 +41,9 @@ export class HomePageComponent implements OnInit {
       );
     }
 
+    sortByLikes() : void{
+      this.fanfics.sort(function (a, b) {
+        return b.count_likes - a.count_likes;
+        });
+    }
 }

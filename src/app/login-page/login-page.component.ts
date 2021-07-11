@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router'; 
-import { Emitters } from '../emmiters/emmiters';
+import { authEmitters } from '../emmiters/authEmmiter';
 
 @Component({
   selector: 'app-login-page',
@@ -22,7 +22,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     let token = this.cookieService.get('token');
     if(token != ''){
-      Emitters.authEmitter.emit(true)
+      authEmitters.authEmitter.emit(true)
       this.router.navigate([''])
     }
     this.form = this.formBuild.group(

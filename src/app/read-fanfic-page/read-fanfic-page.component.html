@@ -1,3 +1,28 @@
+<form [formGroup]="commentForm" (ngSubmit)="OnSubmit(commentForm.value)">
 <div *ngFor="let text of fanficToReadArray">    
     <p>{{text}}</p>
 </div>
+<div>
+    <div>
+        <button type="button" (click)="addLike()" *ngIf="!UserLike">Like Fanfic</button>
+        <button type="button" (click)="addToFavorite()" *ngIf="!inFavorite">Add Fanfic to favorite</button>
+    </div>
+    <div>
+        <button type="button" (click)="deleteLike()" *ngIf="UserLike">not Like Fanfic</button>
+        <button type="button" (click)="removeFromFavorite()" *ngIf="inFavorite">Remove fanfic from favorite</button>
+    </div>
+</div>
+
+
+<p>Cooments:</p>
+<div *ngFor="let comment of comments">
+    <div>
+        <p>From user:{{comment.user.username}}</p>
+        <p>Comment: {{comment.text}}</p>
+    </div>
+</div>
+<div > 
+    <input type="text" formControlName="text" placeholder="Comment Text"/>
+    <button type="submit">Comment</button>
+</div>
+</form>
