@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -11,33 +12,43 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent implements OnInit {
+
+  showError = false
   form: FormGroup;
 
   constructor(
-    private formBuilder : FormBuilder,
-    private http : HttpClient,
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private cookieService : CookieService) { }
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
     let token = this.cookieService.get('token');
-    if(token != ''){
+    if (token != '') {
       this.router.navigate([''])
     }
-    
+
     this.form = this.formBuilder.group(
       {
-        username : '',
-        email : '',
-        password : ''
+        username: '',
+        email: '',
+        password: ''
       }
     );
   }
 
 
-  register() : void {
+  register(): void {
+    
     console.log(this.form)
-    this.authService.createNewUser(this.form.getRawValue())
+    this.authService.createNewUser(this.form.getRawValue()).subscribe(
+      res => {
+        this.router.navigate(['/login'])
+      },
+      (error: HttpErrorResponse) => {
+        this.showError=true
+      }
+    );
   }
 }

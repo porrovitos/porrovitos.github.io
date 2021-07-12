@@ -1,4 +1,4 @@
-<form class="example-form"[formGroup]="orderForm" (ngSubmit)="OnSubmit(orderForm.value)">
+<form class="example-form" [formGroup]="orderForm" (ngSubmit)="OnSubmit(orderForm.value)">
   <div>
     <div>
       <mat-form-field appearance="fill" class="example-full-width" >
@@ -13,12 +13,12 @@
     <div >
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Fanfic name</mat-label>
-        <input matInput type="text" formControlName="fanficName" placeholder="Ex. Harry's Adventures">
+        <input matInput type="text" formControlName="fanficName" placeholder="Ex. Harry's Adventures" required>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Fanfic Description</mat-label>
         <input matInput type="text" formControlName="fanficDescription"
-          placeholder="Ex. The story of Harry's adventures">
+          placeholder="Ex. The story of Harry's adventures" required>
       </mat-form-field>
     </div>
   </div>
@@ -27,21 +27,22 @@
     <div [formGroupName]="i">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Part name</mat-label>
-        <input matInput type="text" formControlName="partName" placeholder="Ex. First Part">
+        <input matInput type="text" formControlName="partName" placeholder="Ex. First Part" required>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Part Text</mat-label>
         <textarea matInput type="text" formControlName="partText" placeholder="Part Text"
-          placeholder="Ex. It makes me feel..."></textarea>
+          placeholder="Ex. It makes me feel..." required></textarea>
       </mat-form-field>
     </div>
     <div class="example-button-row">
-      <button mat-raised-button color="warn" (click)="removeItem(item.get('partId')?.value)">Remove fanfic part</button>
-      <button mat-raised-button color="primary" type="button" (click)="addItem()" style="float: right; margin-bottom: 20px;">Add More</button>
+      <button mat-raised-button color="warn" (click)="removeItem(item.get('partId')?.value)" *ngIf='i != 0'>Remove fanfic part</button>
+      <button mat-raised-button class="example-full-width" color="primary" type="button" (click)="addItem()" style="float: right; margin-bottom: 20px;" *ngIf='i == 0'>Add More</button>
+      <button mat-raised-button color="primary" type="button" (click)="addItem()" style="float: right; margin-bottom: 20px;" *ngIf='i != 0'>Add More</button>
     </div>
   </div>
   <div>
-    <button mat-raised-button type="submit" class="example-full-width" style="margin-bottom: 70px;">Save</button>
+    <button mat-raised-button type="submit" class="example-full-width" style="margin-bottom: 70px;" [disabled]="!orderForm.valid">Save</button>
   </div>
   <div>
   </div>

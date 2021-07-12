@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Fanfic } from 'src/app/model/fanfic';
 import { FanficService } from 'src/app/service/fanfic.service';
 import { authEmitters } from '../emmiters/authEmmiter';
@@ -11,39 +11,54 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-
   public fanfics: Fanfic[];
   constructor(
     private fanficService: FanficService,
-    private cookieService : CookieService){}
+    private cookieService: CookieService) { }
 
-  ngOnInit(){
+  ngOnInit() {
+
     let token = this.cookieService.get('token');
-    if(token != ''){
+    if (token != '') {
       authEmitters.authEmitter.emit(true)
     }
-    else(
+    else (
       authEmitters.authEmitter.emit(false)
     )
-    
+
     this.getFanfics();
   }
 
-    public getFanfics() : void{
-      this.fanficService.getFanfics().subscribe(
-      (response: Fanfic[]) =>{
+  public getFanfics(): void {
+    this.fanficService.getFanfics().subscribe(
+      (response: Fanfic[]) => {
         this.fanfics = response;
-        
+        this.fanfics.sort(function (a, b) {
+          return Number(b.id) - Number(a.id);
+        });
+
       },
-      (error : HttpErrorResponse) =>{
+      (error: HttpErrorResponse) => {
         alert(error.message);
       }
-      );
-    }
+    );
+  }
 
-    sortByLikes() : void{
-      this.fanfics.sort(function (a, b) {
-        return b.count_likes - a.count_likes;
-        });
-    }
+  sortByLikes(): void {
+    this.fanfics.sort(function (a, b) {
+      return b.count_likes - a.count_likes;
+    });
+  }
+
+  sortByLatest(): void {
+    this.fanfics.sort(function (a, b) {
+      return Number(b.id) - Number(a.id);
+    });
+  }
+
+  sortByOldest(): void {
+    this.fanfics.sort(function (a, b) {
+      return Number(a.id) - Number(b.id);
+    });
+  }
 }

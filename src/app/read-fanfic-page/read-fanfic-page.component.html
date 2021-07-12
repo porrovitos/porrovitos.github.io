@@ -1,28 +1,52 @@
-<form [formGroup]="commentForm" (ngSubmit)="OnSubmit(commentForm.value)">
-<div *ngFor="let text of fanficToReadArray">    
-    <p>{{text}}</p>
-</div>
-<div>
-    <div>
-        <button type="button" (click)="addLike()" *ngIf="!UserLike">Like Fanfic</button>
-        <button type="button" (click)="addToFavorite()" *ngIf="!inFavorite">Add Fanfic to favorite</button>
+<form [formGroup]="commentForm" (ngSubmit)="OnSubmit(commentForm.value)" class="example-form">
+    <div *ngFor="let text of fanficToReadArray">
+        <mat-card class="example-full-width" style="margin-bottom: 10px;"
+            *ngIf="fanficToReadArray.indexOf(text)  != fanficToReadArray.length-1">
+            <p *ngIf='fanficToReadArray.indexOf(text) %2 == 0'><b>{{text}}</b></p>
+            <p *ngIf='fanficToReadArray.indexOf(text) %2 != 0'>{{text}}</p>
+            <p *ngIf='fanficToReadArray.indexOf(text)  == fanficToReadArray.length-1'></p>
+        </mat-card>
     </div>
-    <div>
-        <button type="button" (click)="deleteLike()" *ngIf="UserLike">not Like Fanfic</button>
-        <button type="button" (click)="removeFromFavorite()" *ngIf="inFavorite">Remove fanfic from favorite</button>
-    </div>
-</div>
+    <div *ngIf="authenticated">
+        <div class="example-button-row">
+            <div class="example-flex-container">
+                <div class="example-button-container">
+                    <button mat-fab (click)="addLike()" color="#808080" *ngIf="!UserLike"
+                        aria-label="Example icon button with a bookmark icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button mat-fab (click)="deleteLike()" *ngIf="UserLike"
+                        aria-label="Example icon button with a bookmark icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button mat-fab (click)="addToFavorite()" color="#808080" *ngIf="!inFavorite"
+                        aria-label="Example icon button with a bookmark icon">
+                        <mat-icon>bookmark</mat-icon>
+                    </button>
+                    <button mat-fab (click)="removeFromFavorite()" *ngIf="inFavorite"
+                        aria-label="Example icon button with a bookmark icon">
+                        <mat-icon>bookmark</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
 
 
-<p>Cooments:</p>
-<div *ngFor="let comment of comments">
-    <div>
-        <p>From user:{{comment.user.username}}</p>
-        <p>Comment: {{comment.text}}</p>
+        <p style="font-size: 15px; margin-top: 1%;"><b>Cooments:</b></p>
+        <div *ngFor="let comment of comments">
+            <div>
+                <mat-card class="example-full-width" style="margin-bottom: 10px;">
+                    <p>From user:{{comment.user.username}}</p>
+                    <p>Comment: {{comment.text}}</p>
+                </mat-card>
+            </div>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Comment</mat-label>
+                <input matInput type="text" formControlName="text" placeholder="Ex. Amazing!!">
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" style="float: right;">Add commnet</button>
+        </div>
     </div>
-</div>
-<div > 
-    <input type="text" formControlName="text" placeholder="Comment Text"/>
-    <button type="submit">Comment</button>
-</div>
 </form>

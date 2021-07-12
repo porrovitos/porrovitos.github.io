@@ -1,41 +1,65 @@
-<div class="form-group">
-    <label for="exampleFormControlSelect1">Select Fandom</label>
-    <select class="form-control" id="exampleFormControlSelect1" (change)="selectChangeHandler($event)">
-        <option *ngFor="let fandom of fandoms" 
-        [value]="fandom.fandom_name" >
-            {{fandom.fandom_name}}
-        </option>
-    </select>
-    <button type="button" (click)="searchFanfics()">Search Fanfics</button>
-    <div *ngFor="let fanfic of fanfics">
-        <section class="home-blog bg-sand">
-            
-          <div class="container">
-    
-        
-          <!-- section title ends -->
-            <div class="row ">
-                <a a routerLink="/fanfic/id/{{fanfic.id}}">
-              <div class="col-md-6">
-                <div class="media blog-media">
-                  <a><img class="d-flex" src="https://via.placeholder.com/350x380/6495ED/000000" alt="Generic placeholder image"></a>
-                  <div class="media-body">
-                    <a href=""><h5 class="mt-0">{{fanfic.fanfic_name}}</h5></a>
-                    Sodales aliquid, in eget ac cupidatat velit autem numquam ullam ducimus occaecati placeat error.
-                    <ul>
-                      <li>by: {{fanfic.user_username}}</li>
-                      <li class="text-right">{{fanfic.count_likes}} likes</li>
-                    </ul>
-                    <ul>
-                      <li>Creation Date: {{fanfic.creation_date}}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </a>
-            </div>
-          </div>
-        </section>
-    </div>
-    
+<form class="example-form ">
+  <div style="text-align: center;">
+    <button mat-stroked-button color="primary" (click)="findByFandom()" style="margin-left: 4%; margin-bottom: 1%;">Find
+      by fandom</button>
+    <button mat-stroked-button color="primary" (click)="findByUser()" style="margin-left: 4%; margin-bottom: 1%;">Find
+      by user</button>
   </div>
+  <mat-card style="margin-bottom: 2%;" *ngIf="searchType == 'fandom'">
+    <label style="font-size: 15px; margin-top: 1%;" for="exampleFormControlSelect1"><b>Select Fandom</b></label>
+    <div>
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Fandom</mat-label>
+        <select matNativeControl d="exampleFormControlSelect1" (change)="selectChangeHandler($event)">
+          <option *ngFor="let fandom of fandoms" [value]="fandom.fandom_name">
+            {{fandom.fandom_name}}
+          </option>
+        </select>
+      </mat-form-field>
+    </div>
+    <button mat-stroked-button color="primary" (click)="searchFanfics()" style="margin-bottom: 1%;">Search
+      Fanfics</button>
+  </mat-card>
+  <mat-card style="margin-bottom: 2%;" *ngIf="searchType == 'user'">
+    <label style="font-size: 15px; margin-top: 1%;" for="exampleFormControlSelect1"><b>Select User</b></label>
+    <div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Users</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Text" matInput [formControl]="myControl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let user of filteredOptions |async" [value]="user">
+            {{user}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <button mat-stroked-button color="primary" (click)="searchFanficsByUser()" style="margin-bottom: 1%;">Search
+      Fanfics</button>
+  </mat-card>
+
+  <div *ngFor="let fanfic of fanfics">
+    <div *ngFor="let fanfic of fanfics" class="example-form " style="margin-bottom: 20px;">
+      <mat-accordion class="example-full-width">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{fanfic.fanfic_name}}
+            </mat-panel-title>
+            <mat-panel-description style="flex-grow: 0;">
+              Likes: {{fanfic.count_likes}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>Description: {{fanfic.description}}</p>
+          <p>Create Date: {{fanfic.creation_date}}</p>
+          <p>Created by: {{fanfic.user_username}}</p>
+          <button mat-icon-button style="float: right;">
+            <a routerLink="/fanfic/id/{{fanfic.id}}">
+              <mat-icon>open_in_new</mat-icon>
+            </a>
+          </button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</form>

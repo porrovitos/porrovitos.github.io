@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Fanfic } from '../model/fanfic';
 import { Fandom } from '../model/fandom';
@@ -16,40 +16,40 @@ export class FanficService {
     private http: HttpClient,
     private router: Router,) { }
 
-    public getFanfics() : Observable<Fanfic[]> {
-      return this.http.get<Fanfic[]>('http://localhost:97/fanfic')
-    }
+  public getFanfics(): Observable<Fanfic[]> {
+    return this.http.get<Fanfic[]>('http://localhost:97/fanfic')
+  }
 
-    public addFanfics(fanfic : FormGroup){
-      let serializedForm = JSON.parse(JSON.stringify(fanfic));
-      return this.http.post('http://localhost:97/fanfic/add', serializedForm).subscribe(
-        res => {
-          this.router.navigate([''])
-          alert("Fanfic saved!");
-        },
-        (error : HttpErrorResponse) =>{
-          alert(error.message);
-        }
-      );
-    }
+  public addFanfics(fanfic: FormGroup) {
+    let serializedForm = JSON.parse(JSON.stringify(fanfic));
+    return this.http.post('http://localhost:97/fanfic/add', serializedForm).subscribe(
+      res => {
+        this.router.navigate([''])
 
-    public readFanfics(id : Number) : Observable<Fanfic> {
-      return this.http.get<Fanfic>('http://localhost:97/fanfic/id/' + id)
-    }
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 
-    public getFandoms() : Observable<Fandom[]> {
-      return this.http.get<Fandom[]>('http://localhost:97/fandom')
-    }
+  public readFanfics(id: Number): Observable<Fanfic> {
+    return this.http.get<Fanfic>('http://localhost:97/fanfic/id/' + id)
+  }
 
-    public deleteFanfic(id : Number)  {
-      return this.http.delete('http://localhost:97/fanfic/delete/' + id).subscribe(
-        res => {
-          alert("Fanfic delete!");
-        },
-        (error : HttpErrorResponse) =>{
-          alert(error.message);
-        }
-      );
-    }
+  public getFandoms(): Observable<Fandom[]> {
+    return this.http.get<Fandom[]>('http://localhost:97/fandom')
+  }
+
+  public deleteFanfic(id: Number) {
+    return this.http.delete('http://localhost:97/fanfic/delete/' + id).subscribe(
+      res => {
+
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 
 }

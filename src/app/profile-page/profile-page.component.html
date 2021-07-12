@@ -1,1 +1,11 @@
-<p>profile-page works!</p>
+<div class="example-form">
+    <mat-card class="example-full-width">
+        <p>Your username: {{user.username}}</p>
+        <p>Your email: {{user.email}}</p>
+        <div class="example-button-row">
+            <button mat-raised-button color="primary" routerLink = "/profile/my_fanfics">My Fanfics</button>
+            <button mat-raised-button color="primary" routerLink = "/profile/favorite/my_favorite_fanfics" style="float: right; margin-bottom: 20px;">My favorite Fanfics</button>
+          </div>
+    </mat-card>
+</div>
+

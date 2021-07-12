@@ -19,24 +19,29 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { MyFanficPageComponent } from './my-fanfic-page/my-fanfic-page.component';
 import { EditFanficPageComponent } from './edit-fanfic-page/edit-fanfic-page.component';
 import { MyFavaritesPageComponent } from './my-favarites-page/my-favorites-page.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const routes = [
-  {path: '', component: HomePageComponent},
-  {path: 'fanfic/id/:id', component: ReadFanficPageComponent},
-  {path: 'login', component: LoginPageComponent},
-  {path: 'fanfic/add', component: AddFanficPageComponent},
-  {path: 'registration', component: RegisterPageComponent},
-  {path: 'fanfic/search', component: SearchPageComponent},
-  {path: 'profile', component: ProfilePageComponent},
-  {path: 'fanfic/my_fanfics', component: MyFanficPageComponent},
-  {path: 'fanfic/edit_fanfic/:id', component: EditFanficPageComponent},
-  {path: 'profile/favorite/my_favorite_fanfics', component: MyFavaritesPageComponent}
+  { path: '', component: HomePageComponent },
+  { path: 'fanfic/id/:id', component: ReadFanficPageComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'fanfic/add', component: AddFanficPageComponent },
+  { path: 'registration', component: RegisterPageComponent },
+  { path: 'fanfic/search', component: SearchPageComponent },
+  { path: 'profile', component: ProfilePageComponent },
+  { path: 'profile/my_fanfics', component: MyFanficPageComponent },
+  { path: 'fanfic/edit_fanfic/:id', component: EditFanficPageComponent },
+  { path: 'profile/favorite/my_favorite_fanfics', component: MyFavaritesPageComponent }
 ]
 
 @NgModule({
@@ -53,7 +58,7 @@ const routes = [
     MyFanficPageComponent,
     EditFanficPageComponent,
     MyFavaritesPageComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -63,15 +68,21 @@ const routes = [
     MatSelectModule,
     FormsModule,
     MatButtonModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    MatAutocompleteModule,
     MatFormFieldModule,
     MatExpansionModule,
+    MatCardModule,
     MatIconModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatTabsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [ CookieService ],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

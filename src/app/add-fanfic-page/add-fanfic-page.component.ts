@@ -5,6 +5,8 @@ import { FanficService } from 'src/app/service/fanfic.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/model/user';
+import { authEmitters } from '../emmiters/authEmmiter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-fanfic-page',
@@ -25,11 +27,21 @@ export class AddFanficPageComponent implements OnInit {
   constructor(
     private fanficService: FanficService,
     private formBuilder: FormBuilder,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router,
   ) { }
 
 
   ngOnInit() {
+
+    let token = this.cookieService.get('token');
+    if (token != '') {
+      authEmitters.authEmitter.emit(true);
+    }
+    else (
+      this.router.navigate([''])
+    )
+
     this.fanficService.getFandoms().subscribe(
       (response: Fandom[]) => {
         this.fandoms = response;
